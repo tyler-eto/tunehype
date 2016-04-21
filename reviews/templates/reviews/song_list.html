@@ -1,0 +1,23 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}
+<h2>Song list</h2>
+{% endblock %}
+
+{% block content %}
+{% if song_list %}
+<div class="row">
+    {% for song in song_list %}
+    <div class="col-xs-6 col-lg-4">
+        <h4><a href="{% url 'reviews:song_detail' song.id %}">
+        {{ song.name }}
+        </a></h4>
+        <h5>{{ song.review_set.count }} reviews</h5>
+        <!--<h5>{{ song.average_rating | floatformat }} average rating</h5>-->
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No songs are available.</p>
+{% endif %}
+{% endblock %}
