@@ -12,8 +12,8 @@
         <h4><a href="{% url 'reviews:song_detail' song.id %}">
         {{ song.name }}
         </a></h4>
-        <h5>{{ song.review_set.count }} reviews</h5>
-        <!--<h5>{{ song.average_rating | floatformat }} average rating</h5>-->
+        <h5>{{ song.review_set.count }} review(s)</h5>
+        <h5>{{ song.average_rating | floatformat }} average rating</h5>
     </div>
     {% endfor %}
 </div>

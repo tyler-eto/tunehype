@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 from .forms import ReviewForm
 from .models import Review, Song
 import datetime
@@ -29,6 +30,7 @@ def song_detail(request, song_id):
     return render(request, 'reviews/song_detail.html', {'song': song, 'form': form})
 
 
+@login_required
 def add_review(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
     form = ReviewForm(request.POST)
@@ -36,13 +38,15 @@ def add_review(request, song_id):
         rating = form.cleaned_data['rating']
         comment = form.cleaned_data['comment']
         user_name = form.cleaned_data['user_name']
+        tags = form.cleaned_data['tags']
         review = Review()
+        review.tags = tags
         review.song = song
         review.user_name = user_name
         review.rating = rating
         review.comment = comment
         review.pub_date = datetime.datetime.now()
         review.save()
-        return HttpResponseRedirect(reverse('reviews:wine_detail', args=(song.id,)))
+        return HttpResponseRedirect(reverse('reviews:song_detail', args=(song.id,)))
 
     return render(request, 'reviews/song_detail.html', {'song': song, 'form': form})

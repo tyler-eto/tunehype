@@ -5,9 +5,9 @@ from models import Song, Review
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    list_display = ('song', 'rating', 'user_name', 'comment', 'pub_date')
+    list_display = ('song', 'rating', 'user_name', 'comment', 'tags', 'pub_date')
     list_filter = ['pub_date', 'user_name']
-    search_fields = ['comment']
+    search_fields = ['comment', 'tags']
 
 admin.site.register(Song)
 admin.site.register(Review, ReviewAdmin)
