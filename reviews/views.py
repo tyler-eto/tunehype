@@ -18,6 +18,14 @@ def review_detail(request, review_id):
     return render(request, 'reviews/review_detail.html', {'review': review})
 
 
+def user_review_list(request, username=None):
+    if not username:
+        username = request.user.username
+    latest_review_list = Review.objects.filter(user_name=username).order_by('-pub_date')
+    context = {'latest_review_list': latest_review_list}
+    return render(request, 'reviews/user_review_list.html', context)
+
+
 def song_list(request):
     song_list = Song.objects.order_by('-name')
     context = {'song_list': song_list}
@@ -37,7 +45,7 @@ def add_review(request, song_id):
     if form.is_valid():
         rating = form.cleaned_data['rating']
         comment = form.cleaned_data['comment']
-        user_name = form.cleaned_data['user_name']
+        user_name = request.user.user_name
         tags = form.cleaned_data['tags']
         review = Review()
         review.tags = tags
