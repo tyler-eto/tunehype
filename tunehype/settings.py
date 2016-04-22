@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# AUTHORIZATION
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
+REGISTRATION_AUTO_LOGIN = True  # Automatically log the user in.
+
 
 # Application definition
 
@@ -38,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
-    'reviews'
+    'reviews',
+    'registration'
 ]
 
 MIDDLEWARE_CLASSES = [
