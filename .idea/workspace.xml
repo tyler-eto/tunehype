@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c79f74c7-3728-4d95-8eb8-545f7ce37a82" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/teto.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/registration/registration_complete.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/registration/registration_form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reviews/templates/reviews/review_detail.html" afterPath="$PROJECT_DIR$/reviews/templates/reviews/review_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reviews/templates/reviews/song_detail.html" afterPath="$PROJECT_DIR$/reviews/templates/reviews/song_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reviews/urls.py" afterPath="$PROJECT_DIR$/reviews/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reviews/views.py" afterPath="$PROJECT_DIR$/reviews/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tunehype/settings.py" afterPath="$PROJECT_DIR$/tunehype/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tunehype/urls.py" afterPath="$PROJECT_DIR$/tunehype/urls.py" />
-    </list>
+    <list default="true" id="c79f74c7-3728-4d95-8eb8-545f7ce37a82" name="Default" comment="" />
     <ignored path="tunehype.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
