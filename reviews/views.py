@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .forms import ReviewForm
-from .models import Review, Song
+from .models import Review, Song, Cluster
+from .suggestions import update_clusters
 import datetime
 
 
@@ -55,6 +57,43 @@ def add_review(request, song_id):
         review.comment = comment
         review.pub_date = datetime.datetime.now()
         review.save()
+        update_clusters()
         return HttpResponseRedirect(reverse('reviews:song_detail', args=(song.id,)))
 
     return render(request, 'reviews/song_detail.html', {'song': song, 'form': form})
+
+
+@login_required
+def user_recommendation_list(request):
+
+    # get request user reviewed wines
+    user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('song')
+    user_reviews_song_ids = set(map(lambda x: x.song.id, user_reviews))
+
+    # get request user cluster name (just the first one right now)
+    try:
+        user_cluster_name = User.objects.get(username=request.user.username).cluster_set.first().name
+    except:  # if no cluster assigned for a user, update clusters
+        update_clusters()
+        user_cluster_name = User.objects.get(username=request.user.username).cluster_set.first().name
+
+    # get usernames for other members of the cluster
+    user_cluster_other_members = Cluster.objects.get(name=user_cluster_name).users.exclude(username=request.user.username).all()
+    other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+
+    # get reviews by those users, excluding wines reviewed by the request user
+    other_users_reviews = Review.objects.filter(user_name__in=other_members_usernames).exclude(song__id__in=user_reviews_song_ids)
+    other_users_reviews_song_ids = set(map(lambda x: x.song.id, other_users_reviews))
+
+    # then get a wine list including the previous IDs, order by rating
+    wine_list = sorted(
+        list(Song.objects.filter(id__in=other_users_reviews_song_ids)),
+        key=lambda x: x.average_rating,
+        reverse=True
+    )
+
+    return render(
+        request,
+        'reviews/user_recommendation_list.html',
+        {'username': request.user.username,'wine_list': wine_list}
+    )
